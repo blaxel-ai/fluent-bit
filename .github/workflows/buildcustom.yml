@@ -14,7 +14,7 @@ jobs:
     name: Build Fluent Bit (Linux AMD64)
     runs-on: ubuntu-latest
     container:
-      image: debian:11  # Debian 11 has GLIBC 2.31 for better compatibility
+      image: debian:12  # Debian 12 has CMake 3.25+ and GLIBC 2.36 for compatibility
     
     steps:
       - name: Checkout code
