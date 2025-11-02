@@ -59,8 +59,8 @@ jobs:
           FB_VERSION=$(build/bin/fluent-bit --version | head -1 | awk '{print $3}')
           echo "fb_version=$FB_VERSION" >> $GITHUB_OUTPUT
           
-          # Get git commit short SHA
-          GIT_SHA=$(git rev-parse --short HEAD)
+          # Use GitHub SHA for commit info (git not available in container)
+          GIT_SHA="${GITHUB_SHA:0:7}"
           echo "git_sha=$GIT_SHA" >> $GITHUB_OUTPUT
           
           # Determine release tag
