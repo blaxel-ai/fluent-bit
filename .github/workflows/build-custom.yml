@@ -12,7 +12,7 @@ env:
 jobs:
   build:
     name: Build Fluent Bit (Linux AMD64)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04  # Use older Ubuntu for better GLIBC compatibility
     
     steps:
       - name: Checkout code
