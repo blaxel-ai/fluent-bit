@@ -13,6 +13,8 @@ jobs:
   build:
     name: Build Fluent Bit (Linux AMD64)
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to create/update releases
     container:
       image: debian:12  # Debian 12 has CMake 3.25+ and GLIBC 2.36 for compatibility
     
