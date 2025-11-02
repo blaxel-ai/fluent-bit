@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: write  # Required to create/update releases
     container:
-      image: debian:12  # Debian 12 has CMake 3.25+ and GLIBC 2.36 for compatibility
+      image: ubuntu:22.04  # Ubuntu 22.04 has CMake 3.22+ and GLIBC 2.35 for better compatibility
     
     steps:
       - name: Checkout code
@@ -26,6 +26,7 @@ jobs:
       
       - name: Install dependencies
         run: |
+          export DEBIAN_FRONTEND=noninteractive
           apt-get update
           apt-get install -y \
             build-essential \
@@ -97,11 +98,11 @@ jobs:
             fluent-bit-${{ steps.version.outputs.release_tag }}-linux-amd64.tar.gz.sha256
           retention-days: 30
       
-      - name: Create or Update Latest Release
+      - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: latest
-          name: Latest Build (Custom IMDS Support)
+          tag_name: build-${{ steps.version.outputs.git_sha }}
+          name: Build ${{ steps.version.outputs.git_sha }} (Custom IMDS Support)
           prerelease: true
           files: |
             fluent-bit-${{ steps.version.outputs.release_tag }}-linux-amd64.tar.gz
