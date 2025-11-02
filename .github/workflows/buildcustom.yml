@@ -12,7 +12,9 @@ env:
 jobs:
   build:
     name: Build Fluent Bit (Linux AMD64)
-    runs-on: ubuntu-20.04  # Use older Ubuntu for better GLIBC compatibility
+    runs-on: ubuntu-latest
+    container:
+      image: debian:11  # Debian 11 has GLIBC 2.31 for better compatibility
     
     steps:
       - name: Checkout code
@@ -22,8 +24,8 @@ jobs:
       
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
+          apt-get update
+          apt-get install -y \
             build-essential \
             cmake \
             flex \
