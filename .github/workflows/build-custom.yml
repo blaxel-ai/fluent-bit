@@ -68,6 +68,7 @@ jobs:
             TAG="${FB_VERSION}-custom-${GIT_SHA}"
           fi
           echo "release_tag=$TAG" >> $GITHUB_OUTPUT
+          
       
       - name: Create tarball
         run: |
