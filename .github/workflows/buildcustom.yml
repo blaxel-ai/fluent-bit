@@ -1,4 +1,4 @@
-name: Build Custom Fluent Bit with IMDS Support
+name: Build Custom
 
 on:
   push:
