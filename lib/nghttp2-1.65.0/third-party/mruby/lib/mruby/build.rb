@@ -270,7 +270,7 @@ module MRuby
 
       file cxx_src => [src, __FILE__] do |t|
         mkdir_p File.dirname t.name
-        IO.write t.name, <<EOS
+        File.write t.name, <<EOS
 #define __STDC_CONSTANT_MACROS
 #define __STDC_LIMIT_MACROS
 
