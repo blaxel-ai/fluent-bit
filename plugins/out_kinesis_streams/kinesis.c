@@ -434,7 +434,8 @@ static struct flb_config_map config_map[] = {
     {
      FLB_CONFIG_MAP_STR, "stream", NULL,
      0, FLB_TRUE, offsetof(struct flb_kinesis, stream_name),
-     "Kinesis stream name"
+     "Kinesis stream name, or its ARN (arn:...) for a stream of another "
+     "account that a resource policy allows"
     },
 
     {
