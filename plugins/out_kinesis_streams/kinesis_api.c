@@ -78,8 +78,20 @@ static inline int try_to_write(char *buf, int *off, size_t left,
 static int init_put_payload(struct flb_kinesis *ctx, struct flush *buf,
                             int *offset)
 {
-    if (!try_to_write(buf->out_buf, offset, buf->out_buf_size,
-                      "{\"StreamName\":\"", 15)) {
+    /*
+     * A stream given as an ARN goes in StreamARN: a bare name is resolved
+     * in the caller's account, so a stream of another account (allowed by
+     * its resource policy) can only be addressed by ARN. StreamName takes
+     * [a-zA-Z0-9_.-]+ only, an ARN would fail validation there.
+     */
+    if (strncmp(ctx->stream_name, "arn:", 4) == 0) {
+        if (!try_to_write(buf->out_buf, offset, buf->out_buf_size,
+                          "{\"StreamARN\":\"", 14)) {
+            goto error;
+        }
+    }
+    else if (!try_to_write(buf->out_buf, offset, buf->out_buf_size,
+                           "{\"StreamName\":\"", 15)) {
         goto error;
     }
 
